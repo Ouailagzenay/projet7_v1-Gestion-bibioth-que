@@ -8,44 +8,39 @@
     <meta name="description" content="Interface de gestion des ouvrages" />
     <meta name="author" content="ESSARRAJ Fouad" />
     <title>Gestion des ouvrages</title>
-    <!-- CSS only -->
     
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous">
     </script>
 </head>
 
-<body class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_content">
+<body>
+    
             <main>
                 <div >
                     <h1 >Ouvrages</h1>
-                    <ol class="breadcrumb mb-4">
+                    <ol>
                         <li ><a>Tableau de bord</a></li>
                         <li >Ouvrages</li>
                     </ol>
                         <div>
 
                             <form id="formSubmit" autocomplete="off">
-                                <div class="col-md-6">
+                                <div>
                                     <label for="inputTitle" >Title</label>
                                     <input type="text"  id="inputTitle">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="inputAuthor" >Author</label>
                                     <input type="text" id="inputAuthor">
                                 </div>
-                                <div class="col-12">
+                                <div>
                                     <label for="inputPrix" >Prix</label>
                                     <input type="number" id="inputPrix">
                                 </div>
-                                <div class="col-12">
+                                <div>
                                     <label for="inputDate">Date de </label>
                                     <input type="date" id="inputDate">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="inputLanguage">Langue</label>
                                     <select id="inputLanguage">
                                         <option value="" disabled selected>choisir...</option>
@@ -54,8 +49,8 @@
                                         <option value="arabe">Arabe</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label for="workType" class="form-label">Type</label>
+                                <div>
+                                    <label for="workType" >Type</label>
                                     <div>
                                         <input value="Roman" name="workType" type="radio" id="gridCheck">
                                         <label for="gridCheck">
@@ -83,12 +78,12 @@
                             </form>
 
                         </div>
-                    <div class="card mb-4">
+                    <div>
                         <div>
                             📘
                         </div>
-                        <div class="card-body">
-                            <table class="table" id="worksTable">
+                        <div>
+                            <table id="worksTable">
                                 <thead>
                                     <tr>
                                         <th>Titre</th>
@@ -100,16 +95,16 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                
+                                <tbody>
+                                    <tr>
+                                        
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </main>
-            
-        </div>
-    </div>
+        
     <script src="script.js"></script>
 </body>
-
-</html>

@@ -23,19 +23,16 @@ function readwork() {
     return work;
 }
 
+
+
 function insertNewRow(work) {
     var tableBody = document.getElementById("worksTable").getElementsByTagName('tbody')[0];
     var newRow = tableBody.insertRow(tableBody.length);
     newRow.insertCell(0).innerHTML = work.title;
-    cell2 = newRow.insertCell(1);
-    cell2.innerHTML = work.author;
-    cell3 = newRow.insertCell(2);
-    cell3.innerHTML = work.price;
-    cell4 = newRow.insertCell(3);
-    cell4.innerHTML = work.date;
-    cell5 = newRow.insertCell(4);
-    cell5.innerHTML = work.language
-    cell6 = newRow.insertCell(5)
-    cell6.innerHTML = work.type
-    cell7 = newRow.insertCell(6)
+    newRow.insertCell(1).innerHTML = work.author;
+    newRow.insertCell(2).innerHTML = work.price;
+    newRow.insertCell(3).innerHTML = work.date;
+    newRow.insertCell(4).innerHTML = work.languagel;
+    newRow.insertCell(5).innerHTML = work.type;
+    newRow.insertCell(6)
 }
