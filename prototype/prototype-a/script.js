@@ -32,7 +32,7 @@ function insertNewRow(work) {
     newRow.insertCell(1).innerHTML = work.author;
     newRow.insertCell(2).innerHTML = work.price;
     newRow.insertCell(3).innerHTML = work.date;
-    newRow.insertCell(4).innerHTML = work.languagel;
+    newRow.insertCell(4).innerHTML = work.language;
     newRow.insertCell(5).innerHTML = work.type;
     newRow.insertCell(6)
 }

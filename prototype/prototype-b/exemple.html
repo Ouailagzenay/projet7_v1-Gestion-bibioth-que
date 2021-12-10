@@ -13,7 +13,8 @@
 </head>
 
 <body>
-    
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
             <main>
                 <div >
                     <h1 >Ouvrages</h1>
@@ -26,23 +27,23 @@
                             <form id="formSubmit" autocomplete="off">
                                 <div>
                                     <label for="inputTitle" >Title</label>
-                                    <input type="text"  id="inputTitle">
+                                    <input required type="text"  id="inputTitle">
                                 </div>
                                 <div>
                                     <label for="inputAuthor" >Author</label>
-                                    <input type="text" id="inputAuthor">
+                                    <input required type="text" id="inputAuthor">
                                 </div>
                                 <div>
                                     <label for="inputPrix" >Prix</label>
-                                    <input type="number" id="inputPrix">
+                                    <input required type="number" id="inputPrix">
                                 </div>
                                 <div>
                                     <label for="inputDate">Date de </label>
-                                    <input type="date" id="inputDate">
+                                    <input required type="date" id="inputDate">
                                 </div>
                                 <div>
                                     <label for="inputLanguage">Langue</label>
-                                    <select id="inputLanguage">
+                                    <select required id="inputLanguage">
                                         <option value="" disabled selected>choisir...</option>
                                         <option value="français">Français</option>
                                         <option value="anglais">Anglais</option>
@@ -52,20 +53,20 @@
                                 <div>
                                     <label for="workType" >Type</label>
                                     <div>
-                                        <input value="Roman" name="workType" type="radio" id="gridCheck">
+                                        <input required value="Roman" name="workType" type="radio" id="gridCheck">
                                         <label for="gridCheck">
                                             Roman
                                         </label>
                                     </div>
                                     <div>
-                                        <input value="Essai" name="workType" type="radio" id="gridCheck">
+                                        <input required value="Essai" name="workType" type="radio" id="gridCheck">
                                         <label  for="gridCheck">
                                             Essai
                                         </label>
                                     </div>
 
                                     <div>
-                                        <input  name="workType" value="Bande-Dessinée" type="radio" id="gridCheck">
+                                        <input required  name="workType" value="Bande-Dessinée" type="radio" id="gridCheck">
                                         <label  for="gridCheck">
                                             Bande-Dessinée
                                         </label>
@@ -78,10 +79,6 @@
                             </form>
 
                         </div>
-                    <div>
-                        <div>
-                            📘
-                        </div>
                         <div>
                             <table id="worksTable">
                                 <thead>
@@ -92,7 +89,6 @@
                                         <th>Date de publication</th>
                                         <th>Langue</th>
                                         <th>Type</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,9 +98,10 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
                 </div>
             </main>
-        
-    <script src="script.js"></script>
+        </div>
+    </div>       
+           
+            <script src="js.js"></script>
 </body>
