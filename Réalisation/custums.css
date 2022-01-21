@@ -1,0 +1,54 @@
+
+ h1{
+     color: #585656;
+ }
+ .sb-sidenav,.sb-sidenav-footer{
+    background-color: #004b58 !important;
+
+}
+.sb-topnav{
+    background-color: #020c47 !important;
+}
+#submitButton{
+    background-color: #897270 !important;
+}
+#submitButton {
+    color: #fff;
+    border: 2px solid;
+    border-color:  #29036e;
+    
+}
+#submitButton:hover{
+    border-color:  #897270;
+    background-color:#020c47  !important;
+    
+    
+}
+.btn-primary {
+    color: #fff;
+    background-color: #020c47;
+    border-color: #897270;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #897270;
+    border-color: #020c47;
+}
+#formulaire{
+    display: none;
+}
+.show button{
+    justify-content: space-evenly;
+    color: rgb(255, 255, 255);
+    background-color: #020C47;
+    border-color: #020C47;
+    border-radius: 20px;
+    margin: 10px;
+}
+.hide {
+    display: flex;
+    justify-content: flex-end;
+    
+    border-radius: 10px ;
+}
