@@ -1,18 +1,28 @@
-var selectedRow = null
+var gestionOuvrage = new GestionOuvrage();
+
+var selectRow = null;
+var rowId = null;
+document.getElementById("showFormBtn").addEventListener("click", function() {
+    var formN = document.getElementById('formN')
+    formN.classList.toggle("d-none")
+})
+
 document.getElementById("formSubmit").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (validate()) {
-        var work = readwork();
-        if (selectedRow == null)
-            insertNewRow(work);
-        else
-        if (confirm("Êtes-vous sûr de modifier cette œuvre?"))
-            editRow(work)
-        resetForm();
-        hide()
-    } else {
-        alert("S'il-vous-plaît remplissez tous les champs requis")
+    var ouvrage = readOuvrage();
+    if (selectRow == null) {
+        gestionOuvrage.addOuvrage(ouvrage);
     }
+    else
+    if (confirm("Êtes-vous sûr de modifier cette œuvre?")){
+        ouvrage.id = rowId;
+        gestionOuvrage.modifierOuvrage(ouvrage)
+    }
+
+    insertNewRow();
+
+    resetForm();
+     
 })
 
 function resetForm() {
@@ -22,137 +32,110 @@ function resetForm() {
     document.getElementById("inputDate").value = "";
     document.getElementById("inputLanguage").value = "";
     document.querySelector('input[name="workType"]:checked').checked = false
-    selectedRow = null;
-}
-
-var onEditButton = document.getElemen
-
-function readwork() {
-
-    var work = {};
-    work.title = document.getElementById("inputTitle").value;
-    work["author"] = document.getElementById("inputAuthor").value;
-    work["price"] = parseFloat(document.getElementById("inputPrix").value);
-    work["date"] = document.getElementById("inputDate").value;
-    work["language"] = document.getElementById("inputLanguage").value;
-    work["type"] = document.querySelector('input[name="workType"]:checked').value
-    return work;
+    selectRow = null;
 }
 
 
+function readOuvrage() {
+    var ouvrage = new Ouvrage();
+    
+    ouvrage.titre = document.getElementById("inputTitle").value;
+    ouvrage["auteur"] = document.getElementById("inputAuthor").value;
+    ouvrage["prix"] = parseFloat(document.getElementById("inputPrix").value);
+    ouvrage["date"]= document.getElementById("inputDate").value;
+    ouvrage["langue"] = document.getElementById("inputLanguage").value;
+    ouvrage["type"] = document.querySelector('input[name="workType"]:checked').value
 
-function insertNewRow(work) {
+    return ouvrage;
+}
+
+
+
+function insertNewRow() {
+    var List = gestionOuvrage.ouvrageList
+    console.log(List)
     var tableBody = document.getElementById("worksTable").getElementsByTagName('tbody')[0];
+   while(tableBody.rows.length > 0){
+       tableBody.deleteRow(0);
+   }
+   for(var i = 0; i < List.length; i++){
     var newRow = tableBody.insertRow(tableBody.length);
-    newRow.insertCell(0).innerHTML = work.title;
+    cell1 = newRow.insertCell(0)
+    cell1.innerHTML =List[i].id;
+
     cell2 = newRow.insertCell(1);
-    cell2.innerHTML = work.author;
+    cell2.innerHTML = List[i].titre;
+
     cell3 = newRow.insertCell(2);
-    cell3.innerHTML = work.price;
+    cell3.innerHTML = List[i].auteur;
+  
     cell4 = newRow.insertCell(3);
-    cell4.innerHTML = work.date;
+    cell4.innerHTML = List[i].prix;
+
     cell5 = newRow.insertCell(4);
-    cell5.innerHTML = work.language
-    cell6 = newRow.insertCell(5)
-    cell6.innerHTML = work.type
-    cell7 = newRow.insertCell(6)
+    cell5.innerHTML = List[i].date;
 
-    var editButton = document.createElement("button")
-    var deleteButton = document.createElement("button")
+    cell6 = newRow.insertCell(5);
+    cell6.innerHTML = List[i].langue;
 
-    var editContent = document.createTextNode("Edit")
-    editButton.appendChild(editContent)
-    editButton.className = "btn btn-primary me-1"
-    editButton.setAttribute('onclick', 'onEdit(this)')
+    cell7 = newRow.insertCell(6);
+    cell7.innerHTML = List[i].type;
 
-    var deleteContent = document.createTextNode('Delete')
-    deleteButton.appendChild(deleteContent)
-    deleteButton.className = "btn btn-secondary"
-    deleteButton.setAttribute("onclick", 'onDelete(this)')
+    cell8 = newRow.insertCell(7);
 
-    cell7.appendChild(editButton)
-    cell7.appendChild(deleteButton)
-hide();
+
+    var modifierButton = document.createElement("button")
+    var suprimerButton = document.createElement("button")
+
+    var modifierContent = document.createTextNode("modifier")
+    modifierButton.appendChild(modifierContent)
+    modifierButton.setAttribute('onclick', 'modifier(this)')
+
+    var suprimerContent = document.createTextNode('suprimer')
+    suprimerButton.appendChild(suprimerContent)
+    suprimerButton.setAttribute("onclick", 'suprimer(this)')
+ 
+   cell8.appendChild(modifierButton)  
+   cell8.appendChild(suprimerButton)  
+  }
+  
 }
 
-function onEdit(td) {
-    selectedRow = td.parentElement.parentElement;
-    document.getElementById("inputTitle").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("inputAuthor").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("inputPrix").value = selectedRow.cells[2].innerHTML;
-    document.getElementById("inputDate").value = selectedRow.cells[3].innerHTML;
-    document.getElementById("inputLanguage").value = selectedRow.cells[4].innerHTML;
+function modifier(buttonReference) {
+    selectRow = buttonReference.parentElement.parentElement;
+    rowId = selectRow.cells[0].innerHTML
+    var ouvrage = new Ouvrage();
+    ouvrage = gestionOuvrage.getItem(rowId)
+    document.getElementById("inputTitle").value = ouvrage.titre;
+    document.getElementById("inputAuthor").value = ouvrage.auteur;
+    document.getElementById("inputPrix").value = ouvrage.prix;
+    document.getElementById("inputDate").value = ouvrage.date;
+    document.getElementById("inputLanguage").value = ouvrage.langue;
 
     var checkValue = document.getElementsByName("workType");
     for (var i = 0; i < checkValue.length; i++) {
-        if (checkValue[i].value == selectedRow.cells[5].innerHTML) {
+        if (checkValue[i].value == ouvrage.type) {
             checkValue[i].checked = true
         }
-    } show();
-}
-
-function editRow(workToEdit) {
-    selectedRow.cells[0].innerHTML = workToEdit.title;
-    selectedRow.cells[1].innerHTML = workToEdit.author;
-    selectedRow.cells[2].innerHTML = workToEdit.price;
-    selectedRow.cells[3].innerHTML = workToEdit.date;
-    selectedRow.cells[4].innerHTML = workToEdit.language;
-    selectedRow.cells[5].innerHTML = workToEdit.type;
-    
-}
-
-
-
-function onDelete(td) {
-    if (confirm("Êtes-vous sûr de supprimer cette œuvre?")) {
-        row = td.parentElement.parentElement;
-        document.getElementById("worksTable").deleteRow(row.rowIndex)
-    }resetForm();
-}
-
-
-function validate() {
-    var isValid = true;
-    if (document.getElementById("inputTitle").value == "") {
-        isValid = false;
     }
-    if (document.getElementById("inputAuthor").value == "") {
-        isValid = false;
-    } 
-    if (document.getElementById("inputPrix").value == "") {
-        isValid = false;
-    } 
-    if (document.getElementById("inputDate").value == "") {
-        isValid = false;
-    } 
-    if (document.getElementById("inputLanguage").value == "") {
-        isValid = false;
-    } 
-    if (document.querySelector('input[name="workType"]').value == null) {
-        isValid = false;
-    }  
-    return isValid;
-}
-// reset the work
-function resetForm(){
-    document.getElementById('inputTitle').value ='';
-    document.getElementById('inputAuthor').value ='';
-    document.getElementById('inputPrix').value ='';
-    document.getElementById('inputDate').value ='';
-    document.getElementById('inputLanguage').value ='';
-    document.getElementById('gridCheck').value ='';
 
 }
-function show(){
+function suprimer(buttonReference) {
+    if (confirm("Êtes-vous sûr de supprimer cette œuvre?")) {
+        var row = buttonReference.parentElement.parentElement;
+        var rowId = row.cells[0].innerHTML
 
-    
-    document.querySelector('#formulaire').style.display = 'flex';
-
+        document.getElementById("worksTable").deleteRow(row.rowIndex)
+        
+        gestionOuvrage.suprimerOuvrage(rowId)
+        resetForm()
+    }
 }
-function hide(){
-
-    
-    document.querySelector('#formulaire').style.display = 'none';
-
+function printData()
+{
+   var divToPrint=document.getElementById("worksTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
 }
-
