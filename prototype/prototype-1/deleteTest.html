@@ -1,0 +1,27 @@
+<script src="work.js"></script>
+<script src="workManger.js"></script>
+
+<script>
+    var workBLO = new WorkBLO();
+
+
+    // Ajouter un ouvrage
+    var work = new Work();
+    work.title = "My Title"
+    workBLO.addWork(work)
+
+    var work2 = new Work()
+    work2.title = "My Title 2"
+    workBLO.addWork(work2)
+
+    for (var i = 0; i < workBLO.workList.length; i++) {
+        console.log("Avent: " + workBLO.workList[i].title)
+    }
+
+    // Delete
+    workBLO.deleteWork(work.id);
+
+    for (var i = 0; i < workBLO.workList.length; i++) {
+        console.log("apre: " + workBLO.workList[i].title)
+    }
+</script>

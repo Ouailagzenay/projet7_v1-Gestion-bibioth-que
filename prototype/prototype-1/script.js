@@ -1,38 +1,69 @@
+var workManager = new WorkManager();
+
+var selectedRow = null;
+var rowId = null;
+
+
 document.getElementById("formSubmit").addEventListener("submit", function (event) {
     event.preventDefault();
     var work = readwork();
-    insertNewRow(work);
+    workManager.addWork(work);
+
+
+    insertNewRow();
+
+    resetForm();
 })
+
+function resetForm() {
+    document.getElementById("inputTitle").value = "";
+    selectedRow = null;
+}
 
 
 function readwork() {
+    var work = new Work();
 
-    var work = {};
-    work["title"] = document.getElementById("inputTitle").value;
-    work["author"] = document.getElementById("inputAuthor").value;
-    work["price"] = parseFloat(document.getElementById("inputPrix").value);
-    work["date"] = document.getElementById("inputDate").value;
-    work["language"] = document.getElementById("inputLanguage").value;
-    var cheackValues = document.getElementsByName("workType");
-    for (var i = 0; i < cheackValues.length; i++) {
-        if (cheackValues[i].checked) {
-            work["type"] = cheackValues[i].value;
-            break;
-        }
-    }
+    work.title = document.getElementById("inputTitle").value;
     return work;
 }
 
 
 
-function insertNewRow(work) {
+function insertNewRow() {
+    var workList = workManager.getAllItems()
     var tableBody = document.getElementById("worksTable").getElementsByTagName('tbody')[0];
-    var newRow = tableBody.insertRow(tableBody.length);
-    newRow.insertCell(0).innerHTML = work.title;
-    newRow.insertCell(1).innerHTML = work.author;
-    newRow.insertCell(2).innerHTML = work.price;
-    newRow.insertCell(3).innerHTML = work.date;
-    newRow.insertCell(4).innerHTML = work.language;
-    newRow.insertCell(5).innerHTML = work.type;
-    newRow.insertCell(6)
+
+    while (tableBody.rows.length > 0) {
+        tableBody.deleteRow(0);
+    }
+
+
+    for (var i = 0; i < workList.length; i++) {
+        var newRow = tableBody.insertRow(tableBody.length);
+        newRow.insertCell(0).innerHTML = workList[i].id;
+        cell2 = newRow.insertCell(1);
+        cell2.innerHTML = workList[i].title;
+        cell3 = newRow.insertCell(2)
+
+
+        var editButton = document.createElement("button")
+        var deleteButton = document.createElement("button")
+
+        var editContent = document.createTextNode("Edit")
+        editButton.appendChild(editContent)
+        editButton.setAttribute('onclick', 'onEdit(this)')
+
+        var deleteContent = document.createTextNode('Delete')
+        deleteButton.appendChild(deleteContent)
+        deleteButton.setAttribute("onclick", 'onDelete(this)')
+
+        cell3.appendChild(editButton)
+        cell3.appendChild(deleteButton)
+    }
+
 }
+
+
+
+
