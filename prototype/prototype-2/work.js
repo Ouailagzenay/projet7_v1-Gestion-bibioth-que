@@ -1,0 +1,6 @@
+class Work {
+    id;
+    title;
+
+
+}
